@@ -70,4 +70,11 @@ if ($hassiteconfig) {
         new lang_string('copydates_desc', 'local_course_template'),
         0
     ));
+    $settings->add(new admin_setting_configtext(
+        'local_course_template/templateregexreplace',
+        new lang_string('templateregexreplace', 'local_course_template'),
+        new lang_string('templateregexreplace_desc', 'local_course_template'),
+        '',
+        PARAM_NOTAGS
+    ));
 }
