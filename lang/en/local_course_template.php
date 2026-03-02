@@ -41,3 +41,6 @@ $string['pluginname'] = 'Use template on course creation';
 $string['privacy:metadata'] = 'The Use template on course creation plugin does not store any personal data.';
 $string['templatenameformat'] = 'Template shortname format';
 $string['templatenameformat_desc'] = 'Expected shortname format for template courses';
+$string['pluginname'] = 'Local Course Template';
+$string['templateregexreplace'] = 'Term code regex replacement';
+$string['templateregexreplace_desc'] = 'Optional preg_replace replacement for extracting [TERMCODE] from course idnumber. When empty, the first regex capture group is used.';

@@ -93,12 +93,26 @@ class helper {
 
         $target = $DB->get_record('course', ['id' => $targetid], '*', MUST_EXIST);
         $subject = $target->idnumber;
-        preg_match($pattern, $subject, $matches);
-        if (!empty($matches) && count($matches) >= 2) {
+        $regexreplace = get_config('local_course_template', 'templateregexreplace');
+        $templateformat = get_config('local_course_template', 'templatenameformat');
+        $termcode = false;
+        if (!empty($regexreplace)) {
+            $termcode = preg_replace($pattern, $regexreplace, $subject);
+            if ($termcode === null || $termcode === $subject) {
+                return false;
+            }
+        } else {
+            preg_match($pattern, $subject, $matches);
+            if (!empty($matches) && count($matches) >= 2) {
+                $termcode = $matches[1];
+            }
+        }
+
+        if ($termcode !== false && $termcode !== '') {
             $shortname = str_replace(
                 '[TERMCODE]',
-                $matches[1],
-                get_config('local_course_template', 'templatenameformat')
+                $termcode,
+                $templateformat
             );
 
             // Check if the idnumber is cached.
@@ -125,6 +139,7 @@ class helper {
             // This course doesn't conform to the given naming convention, so skip.
             return false;
         }
+
     }
 
     /**
